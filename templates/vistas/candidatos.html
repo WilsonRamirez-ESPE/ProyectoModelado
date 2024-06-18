@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidatos Inscritos</title>
+    <link rel="stylesheet" href="/Proyecto/templates/recursos/estilos.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/candidatos">Candidatos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/empresas">Empresas</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Lista de Candidatos Inscritos</h1>
+        <ul>
+            {% for candidato in candidatos %}
+                <li>
+                    <strong>{{ candidato.nombre }} {{ candidato.apellido }}</strong> - {{ candidato.correo }}
+                    <ul>
+                        {% for habilidad in candidato.habilidades %}
+                            <li> Habilidad: {{ habilidad.nombre }} </li>
+                            <li> Nivel: {{ habilidad.nivel_experiencia }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+        <button id="toggleFormsBtn" type="button" class="btn btn-primary">Agrear Candidato/Habilidad</button>
+        <button type="button" class="btn btn-primary">Editar Candidato/Habilidad</button>
+        <button type="button" class="btn btn-primary">Eliminar Candidato/Habilidad</button>
+        
+        
+        <form class="formularios" id="formAgregarCandidato" action="/agregar_candidato" method="POST" style="display: none;">
+            <h2>Agregar Nuevo Candidato</h2>
+            <div class="mb-3">
+                <label for="id_candidato" class="form-label">ID del Candidato</label>
+                <input type="text" class="form-control" id="id_candidato" name="id_candidato" required>
+            </div>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="mb-3">
+                <label for="apellido" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="apellido" name="apellido" required>
+            </div>
+            <div class="mb-3">
+                <label for="correo" class="form-label">Correo</label>
+                <input type="email" class="form-control" id="correo" name="correo" required>
+            </div>
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" required>
+            </div>
+            <div class="mb-3">
+                <label for="nivel_estudio" class="form-label">Nivel de Estudio</label>
+                <input type="text" class="form-control" id="nivel_estudio" name="nivel_estudio" required>
+            </div>
+
+            <div id="experienciaLaboralContainer">
+                
+            </div>
+            <button type="button" class="btn btn-secondary" id="addExperience">Agregar Experiencia Laboral</button>
+            <button type="submit" class="btn btn-primary">Agregar Candidato</button>
+        </form>
+        
+        
+        <form class="formularios" id="formAgregarHabilidad" action="/agregar_habilidad" method="POST" style="display: none;">
+            <h2>Agregar Nueva Habilidad</h2>
+            <div class="mb-3">
+                <label for="id_habilidad" class="form-label">Id</label>
+                <input type="text" class="form-control" id="id_habilidad" name="id_habilidad" required>
+            </div>
+            <div class="mb-3">
+                <label for="habilidad_nombre" class="form-label">Nombre de la Habilidad</label>
+                <input type="text" class="form-control" id="habilidad_nombre" name="habilidad_nombre" required>
+            </div>
+            <div class="mb-3">
+                <label for="habilidad_descripcion" class="form-label">Descripción de la Habilidad</label>
+                <input type="text" class="form-control" id="habilidad_descripcion" name="habilidad_descripcion" required>
+            </div>
+            <div class="mb-3">
+                <label for="nivel_experiencia" class="form-label">Nivel de Experiencia</label>
+                <input type="text" class="form-control" id="nivel_experiencia" name="nivel_experiencia" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_candidato" class="form-label">ID del candidato</label>
+                <input type="text" class="form-control" id="id_candidato" name="id_candidato" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Agregar Habilidad</button>
+        </form>
+    
+    </div>
+    <script src="/Proyecto/templates/recursos/scripts.js"></script>
+</body>
+</html>

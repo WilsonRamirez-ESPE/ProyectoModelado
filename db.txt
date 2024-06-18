@@ -1,0 +1,135 @@
+use AgenciaReclutamiento
+
+
+// Insertar en la colección: candidatos
+db.candidatos.insertMany([
+  {
+    _id: 1,
+    nombre: "Juan",
+    apellido: "Pérez",
+    correo: "juan.perez@example.com",
+    telefono: "555-1234",
+    nivel_estudio: "Universitario",
+    experiencia_laboral: [
+      { puesto: "Desarrollador", empresa: 1, anio_experiencia: 3 },
+      { puesto: "Analista", empresa: 2, anio_experiencia: 2 }
+    ]
+  },
+  {
+    _id: 2,
+    nombre: "Ana",
+    apellido: "Gómez",
+    correo: "ana.gomez@example.com",
+    telefono: "555-5678",
+    nivel_estudio: "Maestría",
+    experiencia_laboral: [
+      { puesto: "Gerente de Proyectos", empresa: 2, anio_experiencia: 5 }
+    ]
+  }
+])
+
+
+// Insertar en la colección: habilidades
+db.habilidades.insertMany([
+  {
+    _id: 1,
+    nombre: "JavaScript",
+    descripcion: "Lenguaje de programación",
+    nivel_experiencia: "Avanzado",
+    IDCandidato: 1 // Referencia al campo _id del candidato
+  },
+  {
+    _id: 2,
+    nombre: "Gestión de Proyectos",
+    descripcion: "Habilidad para gestionar proyectos",
+    nivel_experiencia: "Intermedio",
+    IDCandidato: 2 // Referencia al campo _id del candidato
+  }
+])
+
+
+// Insertar en la colección: empresas
+db.empresas.insertMany([
+  {
+    _id: 1,
+    nombre: "TechCorp",
+    industria: "Tecnología",
+    ubicacion: "Ciudad",
+    correo_contacto: "contacto@techcorp.com",
+    telefono_contacto: "555-9999",
+    numero_empleados: 100,
+    facturacion_anual: 1000000
+  },
+  {
+    _id: 2,
+    nombre: "Innova",
+    industria: "Consultoría",
+    ubicacion: "Ciudad",
+    correo_contacto: "contacto@innova.com",
+    telefono_contacto: "555-8888",
+    numero_empleados: 50,
+    facturacion_anual: 500000
+  }
+])
+
+
+// Insertar en la colección: ofertas_trabajo
+db.ofertas_trabajo.insertMany([
+  {
+    _id: 1,
+    titulo: "Desarrollador Frontend",
+    descripcion: "Se busca desarrollador frontend con experiencia en React",
+    empresa: 1, // Referencia al campo _id de la empresa
+    salario: 30000,
+    fecha_publicacion: new Date("2023-06-01")
+  },
+  {
+    _id: 2,
+    titulo: "Gerente de Proyectos",
+    descripcion: "Gerente de proyectos con experiencia en el sector tecnológico",
+    empresa: 2, // Referencia al campo _id de la empresa
+    salario: 50000,
+    fecha_publicacion: new Date("2023-06-10")
+  }
+])
+
+// Insertar en la colección: entrevistador
+db.entrevistador.insertMany([
+  {
+    _id: 1,
+    nombre: "Carlos",
+    apellido: "López",
+    correo: "carlos.lopez@example.com",
+    telefono: "555-7777"
+  },
+  {
+    _id: 2,
+    nombre: "María",
+    apellido: "Martínez",
+    correo: "maria.martinez@example.com",
+    telefono: "555-6666"
+  }
+])
+
+
+// Insertar en la colección: entrevistas
+db.entrevistas.insertMany([
+  {
+    _id: 1,
+    candidato: 1, // Referencia al campo _id del candidato
+    oferta: 1, // Referencia al campo _id de la oferta de trabajo
+    fecha_hora: new Date("2023-06-15T10:00:00Z"),
+    ubicacion: "Oficinas centrales",
+    entrevistador: 1, // Referencia al campo _id del entrevistador
+    estado: "Pendiente"
+  },
+  {
+    _id: 2,
+    candidato: 2, // Referencia al campo _id del candidato
+    oferta: 2, // Referencia al campo _id de la oferta de trabajo
+    fecha_hora: new Date("2023-06-20T14:00:00Z"),
+    ubicacion: "Oficinas centrales",
+    entrevistador: 2, // Referencia al campo _id del entrevistador
+    estado: "Completada"
+  }
+])

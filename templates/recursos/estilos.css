@@ -1,0 +1,11 @@
+.formularios{
+  width: 50%; /* Ancho del 50% */
+  border: 1px solid black; /* Borde gris */
+  padding: 20px; /* Espaciado interno */
+  margin: 10px; /* Margen superior */
+  
+}
+
+.btn{
+  margin: 2px;
+}
