@@ -50,6 +50,52 @@ def empresas():
     empresas = list(baseDatos.empresas.aggregate(pipeline))
     return render_template('vistas/empresas.html', empresas=empresas)
 
+
+@app.route('/entrevistas')
+def entrevistas():
+    pipeline = [
+        {
+            '$lookup': {
+                'from': 'entrevistas',
+                'let': { 'entrevistador_id': '$_id' },
+                'pipeline': [
+                    {
+                        '$match': {
+                            '$expr': { '$eq': ['$entrevistador', '$$entrevistador_id'] }
+                        }
+                    },
+                    {
+                        '$lookup': {
+                            'from': 'candidatos',
+                            'localField': 'candidato',
+                            'foreignField': '_id',
+                            'as': 'candidato_info'
+                        }
+                    },
+                    {
+                        '$unwind': '$candidato_info'
+                    },
+                    {
+                        '$project': {
+                            '_id': 0,
+                            'candidato': {'nombre':'$candidato_info.nombre', 
+                                          'apellido': '$candidato_info.apellido'
+                            },  # Nombre del candidato
+                            'fecha_hora': 1,
+                            'ubicacion': 1,
+                            'estado': 1
+                        }
+                    }
+                ],
+                'as': 'entrevistas'
+            }
+        }
+    ]
+    entrevistadores = list(baseDatos.entrevistador.aggregate(pipeline))
+    return render_template('vistas/entrevistas.html', entrevistadores=entrevistadores)
+
+
+
 @app.route('/agregar_candidato', methods=['POST'])
 def agregar_candidato():
     candidato_id = request.form['id_candidato']

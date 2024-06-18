@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Document</title>
     <link rel="stylesheet" href="/Proyecto/templates/recursos/estilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -33,10 +33,25 @@
           </div>
         </div>
     </nav>
-    
     <div class="container">
-        <h1>Bienvenido a la Agencia de Reclutamiento</h1>
-        <p>Esta es la página de inicio.</p>
-    </div>
+      <h1>Lista de Entrevistadores y sus entrevistas</h1>
+      <ul>
+          {% for entrevistador in entrevistadores %}
+              <li>
+                  <strong>{{ entrevistador.nombre }} {{ entrevistador.apellido }}</strong> - {{ entrevistador.correo }}
+                  <ul>
+                      {% for entrevista in entrevistador.entrevistas %}
+                          <li>
+                              Candidato: {{ entrevista.candidato }} - 
+                              Fecha y Hora: {{ entrevista.fecha_hora }} - 
+                              Ubicación: {{ entrevista.ubicacion }} - 
+                              Estado: {{ entrevista.estado }}
+                          </li>
+                      {% endfor %}
+                  </ul>
+              </li>
+          {% endfor %}
+      </ul>
+  </div>
 </body>
 </html>
