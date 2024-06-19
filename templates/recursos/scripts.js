@@ -2,8 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleFormsBtn = document.getElementById('toggleFormsBtn');
     const formAgregarCandidato = document.getElementById('formAgregarCandidato');
     const formAgregarHabilidad = document.getElementById('formAgregarHabilidad');
-    
-
     let formsVisible = false;
 
     toggleFormsBtn.addEventListener('click', function() {
@@ -12,13 +10,34 @@ document.addEventListener('DOMContentLoaded', function() {
         if (formsVisible) {
             formAgregarCandidato.style.display = 'block';
             formAgregarHabilidad.style.display = 'block';
-            toggleFormsBtn.textContent = 'Ocultar Formularios';
+            toggleFormsBtn.textContent = 'Ocultar Formularios de ingreso';
         } else {
             formAgregarCandidato.style.display = 'none';
             formAgregarHabilidad.style.display = 'none';
-            toggleFormsBtn.textContent = 'Mostrar Formularios';
+            toggleFormsBtn.textContent = 'Mostrar Formularios de ingreso';
         }
     });
+
+    const toggleFormsBtnE = document.getElementById('toggleFormsBtnE');
+    const formEliminarCandidato = document.getElementById('formEliminarCandidato');
+    const formEliminarHabilidad = document.getElementById('formEliminarHabilidad');
+    let formsVisibleE = false;
+
+    toggleFormsBtnE.addEventListener('click', function() {
+        formsVisibleE = !formsVisibleE;
+
+        if (formsVisibleE) {
+            formEliminarCandidato.style.display = 'block';
+            formEliminarHabilidad.style.display = 'block';
+            toggleFormsBtnE.textContent = 'Ocultar Formularios de eliminacion';
+        } else {
+            formEliminarCandidato.style.display = 'none';
+            formEliminarHabilidad.style.display = 'none';
+            toggleFormsBtnE.textContent = 'Mostrar Formularios de eliminacion';
+        }
+    });
+
+
 
             const addExperienceButton = document.getElementById('addExperience');
             const experienceContainer = document.getElementById('experienciaLaboralContainer');

@@ -12,14 +12,18 @@ baseDatos = bdd[MONGO_BASEDATOS]
 
 app = Flask(__name__)
 
+
+# Ruta y carga para documnetos estaticos
 @app.route('/Proyecto/templates/recursos/<path:filename>')
 def serve_static(filename):
     return send_from_directory('templates/recursos', filename)
 
+# Ruta y carga para la pagina de inicio
 @app.route('/')
 def inicio():
     return render_template('vistas/inicio.html')
 
+# Ruta y carga para la pagina de candidatos
 @app.route('/candidatos')
 def candidatos():
     pipeline = [
@@ -35,6 +39,7 @@ def candidatos():
     candidatos = list(baseDatos.candidatos.aggregate(pipeline))
     return render_template('vistas/candidatos.html', candidatos=candidatos)
 
+# Ruta y carga para la pagina de empresas
 @app.route('/empresas')
 def empresas():
     pipeline = [
@@ -50,7 +55,7 @@ def empresas():
     empresas = list(baseDatos.empresas.aggregate(pipeline))
     return render_template('vistas/empresas.html', empresas=empresas)
 
-
+# Ruta y carga para la pagina de entrevistas
 @app.route('/entrevistas')
 def entrevistas():
     pipeline = [
@@ -94,8 +99,8 @@ def entrevistas():
     entrevistadores = list(baseDatos.entrevistador.aggregate(pipeline))
     return render_template('vistas/entrevistas.html', entrevistadores=entrevistadores)
 
-
-
+#FUNCIONES PARA LA PAGINA DE CANDIDATOS
+# Ruta y funciones para agregar un candidato
 @app.route('/agregar_candidato', methods=['POST'])
 def agregar_candidato():
     candidato_id = request.form['id_candidato']
@@ -131,7 +136,7 @@ def agregar_candidato():
 
     return redirect(url_for('candidatos'))
 
-
+# Ruta y funciones para agregar una habilidad
 @app.route('/agregar_habilidad', methods=['POST'])
 def agregar_habilidad():
     habilidad_id = request.form['id_habilidad']
@@ -150,6 +155,29 @@ def agregar_habilidad():
     # Insertar la nueva habilidad en la colección habilidades
     baseDatos.habilidades.insert_one(nueva_habilidad)
     return redirect(url_for('candidatos'))
+
+# Ruta y funciones para eliminar un candidato/habilidad
+@app.route('/eliminar_candidato', methods=['POST'])
+def eliminar_candidato():
+    candidato_id = int(request.form['id_candidatoE'])
+
+    # Eliminar candidato por ID
+    baseDatos.candidatos.delete_one({'_id': candidato_id})
+
+    # Eliminar habilidades asociadas al candidato
+    baseDatos.habilidades.delete_many({'IDCandidato': candidato_id})
+
+    return redirect(url_for('candidatos'))
+
+@app.route('/eliminar_habilidad', methods=['POST'])
+def eliminar_habilidad():
+    habilidad_id = int(request.form['id_habilidadE'])
+
+    # Eliminar habilidad por ID
+    baseDatos.habilidades.delete_one({'_id': habilidad_id})
+
+    return redirect(url_for('candidatos'))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
