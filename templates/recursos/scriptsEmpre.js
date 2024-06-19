@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', function() {
 //FUNCIONES PARA EMPRESA Y OFERTA DE TRABAJO
 const toggleFormsBtnEMPRE = document.getElementById('toggleFormsBtnEMPRE');
 const formAgregarEmpresa = document.getElementById('formAgregarEmpresa');
@@ -33,6 +34,9 @@ toggleFormsBtnEli.addEventListener('click', function() {
     } else {
         formEliminarEmpresa.style.display = 'none';
         formEliminarOferta.style.display = 'none';
-        toggleFormsBtnEli.textContent = 'Mostrar Formularios para Agregar';
+        toggleFormsBtnEli.textContent = 'Mostrar Formularios para Eliminar';
     }
+});
+
+
 });

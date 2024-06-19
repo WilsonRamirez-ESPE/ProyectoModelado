@@ -3,13 +3,22 @@ import os
 import pymongo
 from dotenv import load_dotenv
 from datetime import datetime
+from pymongo import MongoClient
 
 load_dotenv()
 
-MONGO_URI = os.getenv("MONGO_URI")
-MONGO_BASEDATOS = "AgenciaReclutamiento"
-bdd = pymongo.MongoClient(MONGO_URI)
-baseDatos = bdd[MONGO_BASEDATOS]
+
+mongo_host = "localhost"  # Dirección del host
+mongo_port = 27017        # Puerto mapeado en tu máquina host
+mongo_db = "AgenciaReclutamiento"
+
+client = MongoClient(f"mongodb://{mongo_host}:{mongo_port}/")
+baseDatos = client[mongo_db]
+
+#MONGO_URI = os.getenv("MONGO_URI")
+#MONGO_BASEDATOS = "AgenciaReclutamiento"
+#bdd = pymongo.MongoClient(MONGO_URI)
+#baseDatos = bdd[MONGO_BASEDATOS]
 
 app = Flask(__name__)
 
@@ -242,7 +251,66 @@ def eliminar_oferta():
     baseDatos.ofertas_trabajo.delete_one({"_id": oferta_id})
     return redirect(url_for('empresas'))
 
+#FUNCIONES PARA LA PAGINA DE ENTREVISTAS
+@app.route('/agregar_entrevistador', methods=['POST'])
+def agregar_entrevistador():
+    id_entrevistador = int(request.form['id_entrevistador'])
+    nombre = request.form['nombre']
+    apellido = request.form['apellido']
+    correo = request.form['correo']
+    telefono = request.form['telefono']
+
+    nuevo_entrevistador = {
+        "_id": id_entrevistador,
+        "nombre": nombre,
+        "apellido": apellido,
+        "correo": correo,
+        "telefono": telefono
+    }
+
+    baseDatos.entrevistador.insert_one(nuevo_entrevistador)
+    return redirect(url_for('entrevistas'))
+
+@app.route('/agregar_entrevista', methods=['POST'])
+def agregar_entrevista():
+    id_entrevista = int(request.form['id_entrevista'])
+    candidato = int(request.form['candidato'])
+    oferta = int(request.form['oferta'])
+    fecha_hora = request.form['fecha_hora']
+    ubicacion = request.form['ubicacion']
+    entrevistador = int(request.form['entrevistador'])
+    estado = request.form['estado']
+
+    # Convertir la fecha_hora a formato de fecha de MongoDB
+    fecha_hora = datetime.strptime(fecha_hora, '%Y-%m-%dT%H:%M')
+
+    nueva_entrevista = {
+        "_id": id_entrevista,
+        "candidato": candidato,
+        "oferta": oferta,
+        "fecha_hora": fecha_hora,
+        "ubicacion": ubicacion,
+        "entrevistador": entrevistador,
+        "estado": estado
+    }
+
+    baseDatos.entrevistas.insert_one(nueva_entrevista)
+    return redirect(url_for('entrevistas'))
+
+@app.route('/eliminar_entrevistador', methods=['POST'])
+def eliminar_entrevistador():
+    id_entrevistador = int(request.form['id_entrevistador'])
+    baseDatos.entrevistador.delete_one({'_id': id_entrevistador})
+    return redirect(url_for('entrevistas'))
+
+@app.route('/eliminar_entrevista', methods=['POST'])
+def eliminar_entrevista():
+    id_entrevista = int(request.form['id_entrevista'])
+    baseDatos.entrevistas.delete_one({'_id': id_entrevista})
+    return redirect(url_for('entrevistas'))
+
+
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
