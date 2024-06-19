@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 import os
 import pymongo
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
@@ -177,6 +178,70 @@ def eliminar_habilidad():
     baseDatos.habilidades.delete_one({'_id': habilidad_id})
 
     return redirect(url_for('candidatos'))
+
+
+#FUNCIONES PARA LA PAGINA DE CANDIDATOS
+@app.route('/agregar_empresa', methods=['POST'])
+def agregar_empresa():
+    empresa_id = int(request.form['id_empresa'])
+    nombre = request.form['nombre']
+    industria = request.form['industria']
+    ubicacion = request.form['ubicacion']
+    correo_contacto = request.form['correo']
+    telefono_contacto = request.form['telefono']
+    numero_empleados = int(request.form['numero_empleados'])
+    facturacion_anual = int(request.form['facturacion_anual'])
+
+    nueva_empresa = {
+        "_id": empresa_id,
+        "nombre": nombre,
+        "industria": industria,
+        "ubicacion": ubicacion,
+        "correo_contacto": correo_contacto,
+        "telefono_contacto": telefono_contacto,
+        "numero_empleados": numero_empleados,
+        "facturacion_anual": facturacion_anual
+    }
+
+    baseDatos.empresas.insert_one(nueva_empresa)
+    return redirect(url_for('empresas'))
+
+@app.route('/agregar_oferta', methods=['POST'])
+def agregar_oferta():
+    oferta_id = int(request.form['id_oferta'])
+    titulo = request.form['titulo']
+    descripcion = request.form['descripcion']
+    empresa = int(request.form['empresa'])
+    salario = int(request.form['salario'])
+    fecha_publicacion_str = request.form['fecha_publicacion']
+
+    fecha_publicacion = datetime.strptime(fecha_publicacion_str, '%Y-%m-%d')
+
+    nueva_oferta = {
+        "_id": oferta_id,
+        "titulo": titulo,
+        "descripcion": descripcion,
+        "empresa": empresa,
+        "salario": salario,
+        "fecha_publicacion": fecha_publicacion
+    }
+
+    baseDatos.ofertas_trabajo.insert_one(nueva_oferta)
+    return redirect(url_for('empresas'))
+
+
+@app.route('/eliminar_empresa', methods=['POST'])
+def eliminar_empresa():
+    empresa_id = int(request.form['id_empresa'])
+    baseDatos.empresas.delete_one({"_id": empresa_id})
+    return redirect(url_for('empresas'))
+
+@app.route('/eliminar_oferta', methods=['POST'])
+def eliminar_oferta():
+    oferta_id = int(request.form['id_oferta'])
+    baseDatos.ofertas_trabajo.delete_one({"_id": oferta_id})
+    return redirect(url_for('empresas'))
+
 
 
 if __name__ == "__main__":

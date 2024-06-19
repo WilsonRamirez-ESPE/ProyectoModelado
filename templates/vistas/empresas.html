@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empresas y Ofertas de Trabajo</title>
-    <link rel="stylesheet" href="/Proyecto/templates/recursos/estilos.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Empresas y Ofertas de Trabajo</title>
+  <link rel="stylesheet" href="/Proyecto/templates/recursos/estilos.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
 </head>
+
 <body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary "data-bs-theme="dark">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/"> <img src="/Proyecto/templates/recursos/imagenes/logoNAV.png" width="100px" height="50px"></a>
+      <a class="navbar-brand" href="/">
+        <img src="/Proyecto/templates/recursos/imagenes/logoNAV.png" width="100px" height="50px" /></a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="/">Inicio</a>
+            <a class="nav-link active" href="/">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/candidatos">Candidatos</a>
+            <a class="nav-link active" href="/candidatos">Candidatos</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/empresas">Empresas</a>
@@ -29,24 +32,125 @@
         </ul>
       </div>
     </div>
-</nav>
-    <div class="container">
-        <h1>Lista de Empresas y sus Ofertas de Trabajo</h1>
+  </nav>
+  <div class="container">
+    <h1>Lista de Empresas y sus Ofertas de Trabajo</h1>
+    <ul>
+      {% for empresa in empresas %}
+      <li>
+        <strong>{{ empresa.nombre }}</strong> - {{ empresa.industria }}
         <ul>
-            {% for empresa in empresas %}
-                <li>
-                    <strong>{{ empresa.nombre }}</strong> - {{ empresa.industria }}
-                    <ul>
-                        {% for oferta in empresa.ofertas %}
-                            <li>{{ oferta.titulo }}: {{ oferta.descripcion }} - Salario: {{ oferta.salario }}</li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}
+          {% for oferta in empresa.ofertas %}
+          <li>
+            {{ oferta.titulo }}: {{ oferta.descripcion }} - Salario: {{
+            oferta.salario }}
+          </li>
+          {% endfor %}
         </ul>
-        <button id="toggleFormsBtn" type="button" class="btn btn-primary">Agrear Candidato/Habilidad</button>
-        <button type="button" class="btn btn-primary">Editar Candidato/Habilidad</button>
-        <button type="button" class="btn btn-primary">Eliminar Candidato/Habilidad</button>
-    </div>
+      </li>
+      {% endfor %}
+    </ul>
+    <button id="toggleFormsBtnEMPRE" type="button" class="btn btn-primary">
+      Agregar Empresa/Oferta
+    </button>
+    <button type="button" class="btn btn-primary">
+      Editar Candidato/Habilidad
+    </button>
+    <button type="button" class="btn btn-primary">
+      Eliminar Candidato/Habilidad
+    </button>
+
+    <form class="formularios" id="formAgregarEmpresa" action="/agregar_empresa" method="POST" style="display: none">
+      <h2>Agregar Nueva Empresa</h2>
+      <div class="mb-3">
+        <label for="id_empresa" class="form-label">ID de la Empresa</label>
+        <input type="text" class="form-control" id="id_empresa" name="id_empresa" required />
+      </div>
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" required />
+      </div>
+      <div class="mb-3">
+        <label for="industria" class="form-label">Industria</label>
+        <input type="text" class="form-control" id="industria" name="industria" required />
+      </div>
+      <div class="mb-3">
+        <label for="ubicacion" class="form-label">Ubicación</label>
+        <input type="text" class="form-control" id="ubicacion" name="ubicacion" required />
+      </div>
+      <div class="mb-3">
+        <label for="correo" class="form-label">Correo</label>
+        <input type="email" class="form-control" id="correo" name="correo" required />
+      </div>
+      <div class="mb-3">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="text" class="form-control" id="telefono" name="telefono" required />
+      </div>
+      <div class="mb-3">
+        <label for="numero_empleados" class="form-label">Número de Empleados</label>
+        <input type="number" class="form-control" id="numero_empleados" name="numero_empleados" required />
+      </div>
+      <div class="mb-3">
+        <label for="facturacion_anual" class="form-label">Facturación Anual</label>
+        <input type="number" class="form-control" id="facturacion_anual" name="facturacion_anual" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Agregar Empresa</button>
+    </form>
+
+    <form class="formularios" id="formAgregarOferta" action="/agregar_oferta" method="POST" style="display: none">
+      <h2>Agregar Nueva Oferta de Trabajo</h2>
+      <div class="mb-3">
+        <label for="id_oferta" class="form-label">ID de la Oferta</label>
+        <input type="text" class="form-control" id="id_oferta" name="id_oferta" required />
+      </div>
+      <div class="mb-3">
+        <label for="titulo" class="form-label">Título</label>
+        <input type="text" class="form-control" id="titulo" name="titulo" required />
+      </div>
+      <div class="mb-3">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <input type="text" class="form-control" id="descripcion" name="descripcion" required />
+      </div>
+      <div class="mb-3">
+        <label for="empresa" class="form-label">ID de la Empresa</label>
+        <input type="text" class="form-control" id="empresa" name="empresa" required />
+      </div>
+      <div class="mb-3">
+        <label for="salario" class="form-label">Salario</label>
+        <input type="number" class="form-control" id="salario" name="salario" required />
+      </div>
+      <div class="mb-3">
+        <label for="fecha_publicacion" class="form-label">Fecha de Publicación</label>
+        <input type="date" class="form-control" id="fecha_publicacion" name="fecha_publicacion" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Agregar Oferta</button>
+    </form>
+
+    <form class="formularios" id="formEliminarEmpresa" action="/eliminar_empresa" method="POST" style="display: none">
+      <h2>Eliminar Empresa por ID</h2>
+      <div class="mb-3">
+        <label for="id_empresa" class="form-label">ID de la Empresa</label>
+        <input type="text" class="form-control" id="id_empresa" name="id_empresa" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Eliminar Empresa</button>
+    </form>
+
+    <form class="formularios" id="formEliminarOferta" action="/eliminar_oferta" method="POST" style="display: none">
+      <h2>Eliminar Oferta de Trabajo por ID</h2>
+      <div class="mb-3">
+        <label for="id_oferta" class="form-label">ID de la Oferta de Trabajo</label>
+        <input type="text" class="form-control" id="id_oferta" name="id_oferta" required />
+      </div>
+      <button type="submit" class="btn btn-primary">
+        Eliminar Oferta de Trabajo
+      </button>
+    </form>
+
+
+  </div>
+
+
+  <script src="/Proyecto/templates/recursos/scriptsEmpre.js"></script>
 </body>
+
 </html>

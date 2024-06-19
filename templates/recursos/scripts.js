@@ -38,8 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-
-            const addExperienceButton = document.getElementById('addExperience');
+    const addExperienceButton = document.getElementById('addExperience');
             const experienceContainer = document.getElementById('experienciaLaboralContainer');
             
             let experienceCount = 1; // Contador para asignar IDs únicos
@@ -65,6 +64,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 experienceContainer.appendChild(newExperience);
                 experienceCount++;
             });
+
+
+
+
+
+
+
+            
             
 
 
