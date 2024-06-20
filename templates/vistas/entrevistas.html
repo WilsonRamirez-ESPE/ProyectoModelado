@@ -35,23 +35,37 @@
   </nav>
   <div class="container">
     <h1>Lista de Entrevistadores y sus entrevistas</h1>
-    <ul>
-      {% for entrevistador in entrevistadores %}
-          <li>
-              <strong>{{ entrevistador.nombre }} {{ entrevistador.apellido }}</strong> - {{ entrevistador.correo }}
-              <ul>
-                  {% for entrevista in entrevistador.entrevistas %}
-                      <li>
-                          Candidato: {{ entrevista.candidato }} -
-                          Fecha y Hora: {{ entrevista.fecha_hora }} -
-                          Ubicación: {{ entrevista.ubicacion }} -
-                          Estado: {{ entrevista.estado }}
-                      </li>
-                  {% endfor %}
-              </ul>
-          </li>
-      {% endfor %}
-  </ul>
+    <div class="container mt-5">
+    <table id="entrevistadoresTable" class="table table-striped table-bordered" style="width: 100%">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Candidato</th>
+              <th>Fecha y Hora</th>
+              <th>Ubicación</th>
+              <th>Estado</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for entrevistador in entrevistadores %}
+          <tr>
+              <td>{{ entrevistador._id }}</td>
+              <td>{{ entrevistador.nombre }} {{ entrevistador.apellido }}</td>
+              <td>{{ entrevistador.correo }}</td>
+              {% for entrevista in entrevistador.entrevistas %}
+              <td>{{ entrevista.candidato }}</td>
+              <td>{{ entrevista.fecha_hora }}</td>
+              <td>{{ entrevista.ubicacion }}</td>
+              <td>{{ entrevista.estado }}</td>
+              {% endfor %}
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</div>
+  
     <button id="toggleFormsBtn" type="button" class="btn btn-primary">Agrear Entrevistador/entrevista</button>
     <button id="toggleFormsBtnActua" type="button" class="btn btn-primary">Editar Candidato/Habilidad</button>
     <button id="toggleFormsBtnElimi" type="button" class="btn btn-primary">Eliminar Entrevistador/entrevista</button>
@@ -198,6 +212,14 @@
 
   </div>
   <script src="/Proyecto/templates/recursos/scriptsEntre.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js"></script>
 </body>
 
 </html>

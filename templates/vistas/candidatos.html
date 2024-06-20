@@ -39,6 +39,7 @@
         </div>
     </nav>
     <div class="container">
+        <h1>Candidatos y sus Habilidades</h1>
         <div class="container mt-5">
             <table id="candidatosTable" class="table table-striped table-bordered" style="width: 100%">
                 <thead>
@@ -47,7 +48,7 @@
                         <th>Nombre</th>
                         <th>Correo</th>
                         <th>Habilidades</th>
-                        <th>Acciones</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -65,141 +66,51 @@
                                 {% endfor %}
                             </ul>
                         </td>
-                        <td>
-                            <button class="btn btn-primary btn-sm btn-actualizar" data-bs-toggle="modal"
-                                data-bs-target="#modalActualizarCandidato">Actualizar</button> <button
-                                class="btn btn-danger btn-sm">Eliminar</button>
-                        </td>
+
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-        </ul>
-        </ul>
-        <button id="toggleFormsBtn" type="button" class="btn btn-primary" data-bs-toggle="modal"
-            data-bs-target="#modalAgregarCandidato">Agregar Candidato/Habilidad</button>
-        <!-- Modal INGRESO CANDIDATO -->
-        <div class="modal fade" id="modalAgregarCandidato" tabindex="-1" aria-labelledby="modalAgregarCandidatoLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-center" id="modalAgregarCandidatoLabel">Agregar Nuevo Candidato</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="formAgregarCandidato" action="/agregar_candidato" method="POST">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="id_candidato" class="form-label">ID del Candidato</label>
-                                    <input type="text" class="form-control" id="id_candidato" name="id_candidato"
-                                        required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="nombre" class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="apellido" class="form-label">Apellido</label>
-                                    <input type="text" class="form-control" id="apellido" name="apellido" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="correo" class="form-label">Correo</label>
-                                    <input type="email" class="form-control" id="correo" name="correo" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="telefono" class="form-label">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="nivel_estudio" class="form-label">Nivel de Estudio</label>
-                                    <input type="text" class="form-control" id="nivel_estudio" name="nivel_estudio"
-                                        required>
-                                </div>
-                            </div>
-                            <div id="experienciaLaboralContainer"></div>
-                            <div class="row align-items-center">
-                                <div class="col-md-6 mb-3">
-                                    <button type="button" class="btn btn-secondary mb-3" id="addExperience">Agregar
-                                        Experiencia Laboral</button>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <button type="submit" class="btn btn-primary">Agregar Candidato</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
-        <!-- Modal  ACTUALIZAR CANDIDATO -->
-        <div class="modal fade" id="modalActualizarCandidato" tabindex="-1"
-            aria-labelledby="modalActualizarCandidatoLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-center" id="modalActualizarCandidatoLabel">Actualizar Candidato</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="formActualizarCandidato" action="/actualizar_candidato" method="POST">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="id_candidato" class="form-label">ID del Candidato</label>
-                                    <input type="number" class="form-control" id="id_candidato_actualizar"
-                                        name="id_candidato" readonly>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="nombre" class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre_actualizar"
-                                        name="nombre_actualizar" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="apellido" class="form-label">Apellido</label>
-                                    <input type="text" class="form-control" id="apellido_actualizar"
-                                        name="apellido_actualizar" readonly>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="correo" class="form-label">Correo</label>
-                                    <input type="email" class="form-control" id="correo_actualizar"
-                                        name="correo_actualizar" value="por" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="telefono" class="form-label">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefono_actualizar"
-                                        name="telefono_actualizar" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="nivel_estudio" class="form-label">Nivel de Estudio</label>
-                                    <input type="text" class="form-control" id="nivel_estudio_actualizar"
-                                        name="nivel_estudio_actualizar" required>
-                                </div>
-                            </div>
-                            <!-- This div may dynamically populate with additional fields for work experience -->
-                            <div id="experienciaLaboralContainer"></div>
-                            <div class="row align-items-center">
-                                <div class="col-md-6 mb-3">
-                                    <button type="button" class="btn btn-secondary mb-3" id="addExperience">Agregar
-                                        Experiencia Laboral</button>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <button type="submit" class="btn btn-primary">Actualizar Candidato</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
+        <button id="toggleFormsBtn" type="button" class="btn btn-primary">Agregar Candidato/Habilidad</button>
         <button id="toggleFormsBtnA" type="button" class="btn btn-primary">Editar Candidato/Habilidad</button>
         <button id="toggleFormsBtnE" type="button" class="btn btn-primary">Eliminar Candidato/Habilidad</button>
 
+        <form class="formularios" id="formAgregarCandidato" action="/agregar_candidato" method="POST" style="display: none;">
+            <h2>Agregar Nuevo Candidato</h2>
+            <div class="mb-3">
+                <label for="id_candidato" class="form-label">ID del Candidato</label>
+                <input type="text" class="form-control" id="id_candidato" name="id_candidato" required>
+            </div>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="mb-3">
+                <label for="apellido" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="apellido" name="apellido" required>
+            </div>
+            <div class="mb-3">
+                <label for="correo" class="form-label">Correo</label>
+                <input type="email" class="form-control" id="correo" name="correo" required>
+            </div>
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" required>
+            </div>
+            <div class="mb-3">
+                <label for="nivel_estudio" class="form-label">Nivel de Estudio</label>
+                <input type="text" class="form-control" id="nivel_estudio" name="nivel_estudio" required>
+            </div>
 
+            <div id="experienciaLaboralContainer">
+                
+            </div>
+            <button type="button" class="btn btn-secondary" id="addExperience">Agregar Experiencia Laboral</button>
+            <button type="submit" class="btn btn-primary">Agregar Candidato</button>
+        </form>
 
         <form class="formularios" id="formAgregarHabilidad" action="/agregar_habilidad" method="POST"
             style="display: none;">
@@ -284,7 +195,6 @@
             <button type="submit" class="btn btn-primary">Actualizar Candidato</button>
         </form>
 
-
         <form class="formularios" id="formActualizarHabilidad" action="/actualizar_habilidad" method="POST"
             style="display: none;">
             <h2>Actualizar Habilidad</h2>
@@ -322,39 +232,6 @@
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#candidatosTable').DataTable({
-            "paging": true,
-            "searching": true,
-            "pageLength": 5,
-            "lengthMenu": [5, 10, 20],
-            "language": {
-                "lengthMenu": "Mostrar _MENU_ registros por página",
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                "search": "Buscar:",
-            }
-        });
 
-        $('#candidatosTable').on('click', '.btn-actualizar', function () {
-            console.log($('#correo_actualizar').val());
-
-            var idCandidato = $(this).closest('tr').find('td:eq(0)').text().trim();
-            var nombreCompleto = $(this).closest('tr').find('td:eq(1)').text().trim();
-            var correo = $(this).closest('tr').find('td:eq(2)').text().trim();
-            console.log(idCandidato, nombreCompleto, correo);
-            $('#id_candidato_actualizar').val(idCandidato);
-            var nombres = nombreCompleto.split(' ');
-            $('#nombre_actualizar').val(nombres[0]);
-            $('#apellido_actualizar').val(nombres[1]);
-            $('#correo_actualizar').val(correo);
-            console.log($('#correo_actualizar').val());
-
-            $('#modalActualizarCandidato').modal('show');
-        });
-    });
-
-
-</script>
 
 </html>

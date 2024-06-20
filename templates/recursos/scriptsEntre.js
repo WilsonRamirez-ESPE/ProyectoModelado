@@ -57,5 +57,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    $('#entrevistadoresTable').DataTable({
+        "paging": true,
+        "searching": true,
+        "pageLength": 5,
+        "lengthMenu": [5, 10, 20],
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "search": "Buscar:",
+        }
+    });
+
 
 });
