@@ -38,5 +38,24 @@ toggleFormsBtnEli.addEventListener('click', function() {
     }
 });
 
+const toggleFormsBtnActu = document.getElementById('toggleFormsBtnActu');
+const formActualizarEmpresa = document.getElementById('formActualizarEmpresa');
+const formActualizarOferta = document.getElementById('formActualizarOferta');
+let formsVisibleAc = false;
+
+toggleFormsBtnActu.addEventListener('click', function() {
+    formsVisibleAc = !formsVisibleAc;
+
+    if (formsVisibleAc) {
+        formActualizarEmpresa.style.display = 'block';
+        formActualizarOferta.style.display = 'block';
+        toggleFormsBtnEli.textContent = 'Ocultar Formularios para Agregar';
+    } else {
+        formActualizarEmpresa.style.display = 'none';
+        formActualizarOferta.style.display = 'none';
+        toggleFormsBtnEli.textContent = 'Mostrar Formularios para Eliminar';
+    }
+});
+
 
 });

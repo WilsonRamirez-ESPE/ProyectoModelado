@@ -53,7 +53,7 @@
       {% endfor %}
   </ul>
     <button id="toggleFormsBtn" type="button" class="btn btn-primary">Agrear Entrevistador/entrevista</button>
-    <button  type="button" class="btn btn-primary">Editar Candidato/Habilidad</button>
+    <button id="toggleFormsBtnActua" type="button" class="btn btn-primary">Editar Candidato/Habilidad</button>
     <button id="toggleFormsBtnElimi" type="button" class="btn btn-primary">Eliminar Entrevistador/entrevista</button>
 
     <form class="formularios" id="formAgregarEntrevistador" action="/agregar_entrevistador" method="POST"
@@ -135,6 +135,65 @@
       </div>
       <button type="submit" class="btn btn-danger">Eliminar Entrevista</button>
     </form>
+
+    <form class="formularios" id="formActualizarEntrevistador" action="/actualizar_entrevistador" method="POST" style="display: none">
+      <h2>Actualizar Entrevistador</h2>
+      <div class="mb-3">
+          <label for="id_entrevistador" class="form-label">ID del Entrevistador</label>
+          <input type="text" class="form-control" id="id_entrevistador" name="id_entrevistador" required>
+      </div>
+      <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" required>
+      </div>
+      <div class="mb-3">
+          <label for="apellido" class="form-label">Apellido</label>
+          <input type="text" class="form-control" id="apellido" name="apellido" required>
+      </div>
+      <div class="mb-3">
+          <label for="correo" class="form-label">Correo</label>
+          <input type="email" class="form-control" id="correo" name="correo" required>
+      </div>
+      <div class="mb-3">
+          <label for="telefono" class="form-label">Teléfono</label>
+          <input type="text" class="form-control" id="telefono" name="telefono" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Actualizar Entrevistador</button>
+  </form>
+  
+    <form class="formularios" id="formActualizarEntrevista" action="/actualizar_entrevista" method="POST" style="display: none">
+      <h2>Actualizar Entrevista</h2>
+      <div class="mb-3">
+          <label for="id_entrevista" class="form-label">ID de la Entrevista</label>
+          <input type="text" class="form-control" id="id_entrevista" name="id_entrevista" required>
+      </div>
+      <div class="mb-3">
+          <label for="candidato" class="form-label">ID del Candidato</label>
+          <input type="text" class="form-control" id="candidato" name="candidato" required>
+      </div>
+      <div class="mb-3">
+          <label for="oferta" class="form-label">ID de la Oferta</label>
+          <input type="text" class="form-control" id="oferta" name="oferta" required>
+      </div>
+      <div class="mb-3">
+          <label for="fecha_hora" class="form-label">Fecha y Hora</label>
+          <input type="datetime-local" class="form-control" id="fecha_hora" name="fecha_hora" required>
+      </div>
+      <div class="mb-3">
+          <label for="ubicacion" class="form-label">Ubicación</label>
+          <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
+      </div>
+      <div class="mb-3">
+          <label for="entrevistador" class="form-label">ID del Entrevistador</label>
+          <input type="text" class="form-control" id="entrevistador" name="entrevistador" required>
+      </div>
+      <div class="mb-3">
+          <label for="estado" class="form-label">Estado</label>
+          <input type="text" class="form-control" id="estado" name="estado" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Actualizar Entrevista</button>
+  </form>
+  
 
 
   </div>

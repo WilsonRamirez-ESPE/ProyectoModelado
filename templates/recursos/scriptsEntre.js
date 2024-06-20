@@ -38,5 +38,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    const toggleFormsBtnActua = document.getElementById('toggleFormsBtnActua');
+    const formActualizarEntrevistador = document.getElementById('formActualizarEntrevistador');
+    const formActualizarEntrevista = document.getElementById('formActualizarEntrevista');
+    let formsVisibleActu = false;
+
+    toggleFormsBtnActua.addEventListener('click', function() {
+        formsVisibleActu = !formsVisibleActu;
+
+        if (formsVisibleActu) {
+            formActualizarEntrevistador.style.display = 'block';
+            formActualizarEntrevista.style.display = 'block';
+            toggleFormsBtnActua.textContent = 'Ocultar Formularios para eliminar';
+        } else {
+            formActualizarEntrevistador.style.display = 'none';
+            formActualizarEntrevista.style.display = 'none';
+            toggleFormsBtnActua.textContent = 'Mostrar Formularios para eliminar';
+        }
+    });
+
 
 });

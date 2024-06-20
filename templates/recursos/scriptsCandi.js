@@ -37,6 +37,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    const toggleFormsBtnA = document.getElementById('toggleFormsBtnA');
+    const formActualizarCandidato = document.getElementById('formActualizarCandidato');
+    const formActualizarHabilidad = document.getElementById('formActualizarHabilidad');
+    let formsVisibleA = false;
+
+    toggleFormsBtnA.addEventListener('click', function() {
+        formsVisibleA = !formsVisibleA;
+
+        if (formsVisibleA) {
+            formActualizarCandidato.style.display = 'block';
+            formActualizarHabilidad.style.display = 'block';
+            toggleFormsBtnE.textContent = 'Ocultar Formularios de eliminacion';
+        } else {
+            formActualizarCandidato.style.display = 'none';
+            formActualizarHabilidad.style.display = 'none';
+            toggleFormsBtnE.textContent = 'Mostrar Formularios de eliminacion';
+        }
+    });
+
 
     const addExperienceButton = document.getElementById('addExperience');
             const experienceContainer = document.getElementById('experienciaLaboralContainer');

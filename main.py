@@ -4,6 +4,7 @@ import pymongo
 from dotenv import load_dotenv
 from datetime import datetime
 from pymongo import MongoClient
+from bson import ObjectId
 
 load_dotenv()
 
@@ -102,6 +103,7 @@ def entrevistas():
 
 
 
+
 #FUNCIONES PARA LA PAGINA DE CANDIDATOS
 # Ruta y funciones para agregar un candidato
 @app.route('/agregar_candidato', methods=['POST'])
@@ -179,6 +181,56 @@ def eliminar_habilidad():
 
     return redirect(url_for('candidatos'))
 
+# Ruta para actualizar un candidato
+@app.route('/actualizar_candidato', methods=['POST'])
+def actualizar_candidato():
+    id_candidato = int(request.form['id_candidato'])  # Convertir a entero si es un número entero
+    nombre = request.form['nombre']
+    apellido = request.form['apellido']
+    correo = request.form['correo']
+    telefono = request.form['telefono']
+    nivel_estudio = request.form['nivel_estudio']
+    experiencia_laboral = request.form.getlist('experiencia_laboral')
+
+    baseDatos_local.candidatos.update_one(
+        {'_id': id_candidato},  # Usar directamente el entero como _id
+        {'$set': {
+            'nombre': nombre,
+            'apellido': apellido,
+            'correo': correo,
+            'telefono': telefono,
+            'nivel_estudio': nivel_estudio,
+            'experiencia_laboral': experiencia_laboral
+        }}
+    )
+    
+    return redirect(url_for('candidatos'))
+
+# Ruta para actualizar una habilidad
+@app.route('/actualizar_habilidad', methods=['POST'])
+def actualizar_habilidad():
+    id_habilidad = int(request.form['id_habilidad'])  # Convertir a entero si es un número entero
+    nombre = request.form['nombre']
+    descripcion = request.form['descripcion']
+    nivel_experiencia = request.form['nivel_experiencia']
+    IDCandidato = int(request.form['IDCandidato'])  # Convertir a entero si es un número entero
+
+    baseDatos_amigo.habilidades.update_one(
+        {'_id': id_habilidad},  # Usar directamente el entero como _id
+        {'$set': {
+            'nombre': nombre,
+            'descripcion': descripcion,
+            'nivel_experiencia': nivel_experiencia,
+            'IDCandidato': IDCandidato
+        }}
+    )
+    
+    return redirect(url_for('candidatos'))
+
+
+
+
+
 #FUNCIONES PARA LA PAGINA DE CANDIDATOS
 @app.route('/agregar_empresa', methods=['POST'])
 def agregar_empresa():
@@ -241,6 +293,57 @@ def eliminar_oferta():
     baseDatos_amigo.ofertas_trabajo.delete_one({"_id": oferta_id})
     return redirect(url_for('empresas'))
 
+@app.route('/actualizar_empresa', methods=['POST'])
+def actualizar_empresa():
+    id_empresa = int(request.form['id_empresa'])
+    nombre = request.form['nombre']
+    industria = request.form['industria']
+    ubicacion = request.form['ubicacion']
+    correo_contacto = request.form['correo_contacto']
+    telefono_contacto = request.form['telefono_contacto']
+    numero_empleados = int(request.form['numero_empleados'])
+    facturacion_anual = int(request.form['facturacion_anual'])
+
+    baseDatos_local.empresas.update_one(
+        {'_id': id_empresa},
+        {'$set': {
+            'nombre': nombre,
+            'industria': industria,
+            'ubicacion': ubicacion,
+            'correo_contacto': correo_contacto,
+            'telefono_contacto': telefono_contacto,
+            'numero_empleados': numero_empleados,
+            'facturacion_anual': facturacion_anual
+        }}
+    )
+
+    return redirect(url_for('empresas'))
+
+@app.route('/actualizar_oferta', methods=['POST'])
+def actualizar_oferta():
+    id_oferta = int(request.form['id_oferta'])
+    titulo = request.form['titulo']
+    descripcion = request.form['descripcion']
+    empresa = int(request.form['empresa'])
+    salario = int(request.form['salario'])
+    fecha_publicacion = request.form['fecha_publicacion']
+
+    baseDatos_amigo.ofertas_trabajo.update_one(
+        {'_id': id_oferta},
+        {'$set': {
+            'titulo': titulo,
+            'descripcion': descripcion,
+            'empresa': empresa,
+            'salario': salario,
+            'fecha_publicacion': fecha_publicacion
+        }}
+    )
+
+    return redirect(url_for('empresas'))
+
+
+
+
 #FUNCIONES PARA LA PAGINA DE ENTREVISTAS
 @app.route('/agregar_entrevistador', methods=['POST'])
 def agregar_entrevistador():
@@ -300,6 +403,50 @@ def eliminar_entrevista():
     baseDatos_amigo.entrevistas.delete_one({'_id': id_entrevista})
     return redirect(url_for('entrevistas'))
 
+@app.route('/actualizar_entrevistador', methods=['POST'])
+def actualizar_entrevistador():
+    id_entrevistador = int(request.form['id_entrevistador'])
+    nombre = request.form['nombre']
+    apellido = request.form['apellido']
+    correo = request.form['correo']
+    telefono = request.form['telefono']
+
+    baseDatos_local.entrevistador.update_one(
+        {'_id': id_entrevistador},
+        {'$set': {
+            'nombre': nombre,
+            'apellido': apellido,
+            'correo': correo,
+            'telefono': telefono
+        }}
+    )
+
+    return redirect(url_for('entrevistas'))
+
+
+@app.route('/actualizar_entrevista', methods=['POST'])
+def actualizar_entrevista():
+    id_entrevista = int(request.form['id_entrevista'])
+    candidato = int(request.form['candidato'])
+    oferta = int(request.form['oferta'])
+    fecha_hora = request.form['fecha_hora']
+    ubicacion = request.form['ubicacion']
+    entrevistador = int(request.form['entrevistador'])
+    estado = request.form['estado']
+
+    baseDatos_amigo.entrevistas.update_one(
+        {'_id': id_entrevista},
+        {'$set': {
+            'candidato': candidato,
+            'oferta': oferta,
+            'fecha_hora': fecha_hora,
+            'ubicacion': ubicacion,
+            'entrevistador': entrevistador,
+            'estado': estado
+        }}
+    )
+
+    return redirect(url_for('entrevistas'))
 
 
 
