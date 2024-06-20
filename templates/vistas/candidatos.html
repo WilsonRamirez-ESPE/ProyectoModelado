@@ -32,18 +32,19 @@
     </nav>
     <div class="container">
         <h1>Lista de Candidatos Inscritos</h1>
-        <ul>
-            {% for candidato in candidatos %}
-                <li>
-                    <strong>{{ candidato.nombre }} {{ candidato.apellido }}</strong> - {{ candidato.correo }}
-                    <ul>
-                        {% for habilidad in candidato.habilidades %}
-                            <li> Habilidad: {{ habilidad.nombre }} </li>
-                            <li> Nivel: {{ habilidad.nivel_experiencia }}</li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}
+    <ul>
+        {% for candidato in candidatos %}
+            <li>
+                <strong>{{ candidato.nombre }} {{ candidato.apellido }}</strong> - {{ candidato.correo }}
+                <ul>
+                    {% for habilidad in candidato.habilidades %}
+                        <li>Habilidad: {{ habilidad.nombre }}</li>
+                        <li>Nivel: {{ habilidad.nivel_experiencia }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
         </ul>
         <button id="toggleFormsBtn" type="button" class="btn btn-primary">Agrear Candidato/Habilidad</button>
         <button type="button" class="btn btn-primary">Editar Candidato/Habilidad</button>

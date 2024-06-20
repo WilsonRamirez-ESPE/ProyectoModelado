@@ -8,12 +8,22 @@ from pymongo import MongoClient
 load_dotenv()
 
 
-mongo_host = "localhost"  # Dirección del host
-mongo_port = 27017        # Puerto mapeado en tu máquina host
+# Dirección IP pública de la máquina de tu amigo
+mongo_host_amigo = "26.108.170.74"
+mongo_port_amigo = 27017
+
+# Tu configuración local de MongoDB
+mongo_host_local = "localhost"
+mongo_port_local = 27017  # Puerto mapeado en tu máquina host para MongoDB local
 mongo_db = "AgenciaReclutamiento"
 
-client = MongoClient(f"mongodb://{mongo_host}:{mongo_port}/")
-baseDatos = client[mongo_db]
+# Conexión a MongoDB de tu amigo
+client_amigo = MongoClient(f"mongodb://{mongo_host_amigo}:{mongo_port_amigo}/")
+baseDatos_amigo = client_amigo[mongo_db]
+
+# Conexión a tu MongoDB local
+client_local = MongoClient(f"mongodb://{mongo_host_local}:{mongo_port_local}/")
+baseDatos_local = client_local[mongo_db]
 
 #MONGO_URI = os.getenv("MONGO_URI")
 #MONGO_BASEDATOS = "AgenciaReclutamiento"
@@ -36,17 +46,20 @@ def inicio():
 # Ruta y carga para la pagina de candidatos
 @app.route('/candidatos')
 def candidatos():
-    pipeline = [
-        {
-            '$lookup': {
-                'from': 'habilidades',
-                'localField': '_id',
-                'foreignField': 'IDCandidato',
-                'as': 'habilidades'
-            }
-        }
-    ]
-    candidatos = list(baseDatos.candidatos.aggregate(pipeline))
+    # Consulta en tu MongoDB local para obtener los candidatos
+    candidatos = list(baseDatos_local.candidatos.find({}))
+    
+    # Consulta en MongoDB de tu amigo para obtener las habilidades
+    habilidades = list(baseDatos_amigo.habilidades.find({}))
+    
+    # Convertir ObjectId a string para evitar problemas de serialización y combinar datos
+    for candidato in candidatos:
+        candidato['_id'] = str(candidato['_id'])
+        candidato['habilidades'] = [
+            habilidad for habilidad in habilidades 
+            if str(habilidad.get('IDCandidato')) == candidato['_id']
+        ]
+    
     return render_template('vistas/candidatos.html', candidatos=candidatos)
 
 # Ruta y carga para la pagina de empresas
@@ -142,7 +155,7 @@ def agregar_candidato():
         "experiencia_laboral": experiencia_laboral
     }
 
-    baseDatos.candidatos.insert_one(nuevo_candidato)
+    baseDatos_local.candidatos.insert_one(nuevo_candidato)
 
     return redirect(url_for('candidatos'))
 
@@ -163,7 +176,7 @@ def agregar_habilidad():
         "IDCandidato": int(habilidad_candidato)
     }
     # Insertar la nueva habilidad en la colección habilidades
-    baseDatos.habilidades.insert_one(nueva_habilidad)
+    baseDatos_amigo.habilidades.insert_one(nueva_habilidad)
     return redirect(url_for('candidatos'))
 
 # Ruta y funciones para eliminar un candidato/habilidad
@@ -172,10 +185,10 @@ def eliminar_candidato():
     candidato_id = int(request.form['id_candidatoE'])
 
     # Eliminar candidato por ID
-    baseDatos.candidatos.delete_one({'_id': candidato_id})
+    baseDatos_local.candidatos.delete_one({'_id': candidato_id})
 
     # Eliminar habilidades asociadas al candidato
-    baseDatos.habilidades.delete_many({'IDCandidato': candidato_id})
+    baseDatos_amigo.habilidades.delete_many({'IDCandidato': candidato_id})
 
     return redirect(url_for('candidatos'))
 
@@ -184,7 +197,7 @@ def eliminar_habilidad():
     habilidad_id = int(request.form['id_habilidadE'])
 
     # Eliminar habilidad por ID
-    baseDatos.habilidades.delete_one({'_id': habilidad_id})
+    baseDatos_amigo.habilidades.delete_one({'_id': habilidad_id})
 
     return redirect(url_for('candidatos'))
 
