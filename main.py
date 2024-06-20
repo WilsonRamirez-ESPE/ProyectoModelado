@@ -65,62 +65,42 @@ def candidatos():
 # Ruta y carga para la pagina de empresas
 @app.route('/empresas')
 def empresas():
-    pipeline = [
-        {
-            '$lookup': {
-                'from': 'ofertas_trabajo',
-                'localField': '_id',
-                'foreignField': 'empresa',
-                'as': 'ofertas'
-            }
-        }
-    ]
-    empresas = list(baseDatos.empresas.aggregate(pipeline))
+    # Consulta en tu MongoDB local para obtener los candidatos
+    empresas = list(baseDatos_local.empresas.find({}))
+    
+    # Consulta en MongoDB de tu amigo para obtener las habilidades
+    ofertas = list(baseDatos_amigo.ofertas_trabajo.find({}))
+    
+    # Convertir ObjectId a string para evitar problemas de serialización y combinar datos
+    for empresa in empresas:
+        empresa['_id'] = str(empresa['_id'])
+        empresa['ofertas'] = [
+            oferta for oferta in ofertas 
+            if str(oferta.get('empresa')) == empresa['_id']
+        ]
+    
     return render_template('vistas/empresas.html', empresas=empresas)
 
 # Ruta y carga para la pagina de entrevistas
 @app.route('/entrevistas')
 def entrevistas():
-    pipeline = [
-        {
-            '$lookup': {
-                'from': 'entrevistas',
-                'let': { 'entrevistador_id': '$_id' },
-                'pipeline': [
-                    {
-                        '$match': {
-                            '$expr': { '$eq': ['$entrevistador', '$$entrevistador_id'] }
-                        }
-                    },
-                    {
-                        '$lookup': {
-                            'from': 'candidatos',
-                            'localField': 'candidato',
-                            'foreignField': '_id',
-                            'as': 'candidato_info'
-                        }
-                    },
-                    {
-                        '$unwind': '$candidato_info'
-                    },
-                    {
-                        '$project': {
-                            '_id': 0,
-                            'candidato': {'nombre':'$candidato_info.nombre', 
-                                          'apellido': '$candidato_info.apellido'
-                            },  # Nombre del candidato
-                            'fecha_hora': 1,
-                            'ubicacion': 1,
-                            'estado': 1
-                        }
-                    }
-                ],
-                'as': 'entrevistas'
-            }
-        }
-    ]
-    entrevistadores = list(baseDatos.entrevistador.aggregate(pipeline))
+    # Consulta en tu MongoDB local para obtener los entrevistadores
+    entrevistadores = list(baseDatos_local.entrevistador.find({}))
+    
+    # Consulta en MongoDB de tu amigo para obtener las entrevistas
+    entrevistas = list(baseDatos_amigo.entrevistas.find({}))
+    
+    # Convertir ObjectId a string para evitar problemas de serialización y combinar datos
+    for entrevistador in entrevistadores:
+        entrevistador['_id'] = str(entrevistador['_id'])
+        entrevistador['entrevistas'] = [
+            entrevista for entrevista in entrevistas 
+            if str(entrevista.get('entrevistador')) == entrevistador['_id']
+        ]
+    
     return render_template('vistas/entrevistas.html', entrevistadores=entrevistadores)
+
+
 
 #FUNCIONES PARA LA PAGINA DE CANDIDATOS
 # Ruta y funciones para agregar un candidato
@@ -183,10 +163,8 @@ def agregar_habilidad():
 @app.route('/eliminar_candidato', methods=['POST'])
 def eliminar_candidato():
     candidato_id = int(request.form['id_candidatoE'])
-
     # Eliminar candidato por ID
     baseDatos_local.candidatos.delete_one({'_id': candidato_id})
-
     # Eliminar habilidades asociadas al candidato
     baseDatos_amigo.habilidades.delete_many({'IDCandidato': candidato_id})
 
@@ -200,7 +178,6 @@ def eliminar_habilidad():
     baseDatos_amigo.habilidades.delete_one({'_id': habilidad_id})
 
     return redirect(url_for('candidatos'))
-
 
 #FUNCIONES PARA LA PAGINA DE CANDIDATOS
 @app.route('/agregar_empresa', methods=['POST'])
@@ -225,7 +202,7 @@ def agregar_empresa():
         "facturacion_anual": facturacion_anual
     }
 
-    baseDatos.empresas.insert_one(nueva_empresa)
+    baseDatos_local.empresas.insert_one(nueva_empresa)
     return redirect(url_for('empresas'))
 
 @app.route('/agregar_oferta', methods=['POST'])
@@ -248,20 +225,20 @@ def agregar_oferta():
         "fecha_publicacion": fecha_publicacion
     }
 
-    baseDatos.ofertas_trabajo.insert_one(nueva_oferta)
+    baseDatos_amigo.ofertas_trabajo.insert_one(nueva_oferta)
     return redirect(url_for('empresas'))
-
 
 @app.route('/eliminar_empresa', methods=['POST'])
 def eliminar_empresa():
     empresa_id = int(request.form['id_empresa'])
-    baseDatos.empresas.delete_one({"_id": empresa_id})
+    baseDatos_local.empresas.delete_one({"_id": empresa_id})
+    baseDatos_amigo.habilidades.delete_many({'empresa': empresa_id})
     return redirect(url_for('empresas'))
 
 @app.route('/eliminar_oferta', methods=['POST'])
 def eliminar_oferta():
     oferta_id = int(request.form['id_oferta'])
-    baseDatos.ofertas_trabajo.delete_one({"_id": oferta_id})
+    baseDatos_amigo.ofertas_trabajo.delete_one({"_id": oferta_id})
     return redirect(url_for('empresas'))
 
 #FUNCIONES PARA LA PAGINA DE ENTREVISTAS
@@ -281,7 +258,7 @@ def agregar_entrevistador():
         "telefono": telefono
     }
 
-    baseDatos.entrevistador.insert_one(nuevo_entrevistador)
+    baseDatos_local.entrevistador.insert_one(nuevo_entrevistador)
     return redirect(url_for('entrevistas'))
 
 @app.route('/agregar_entrevista', methods=['POST'])
@@ -307,19 +284,20 @@ def agregar_entrevista():
         "estado": estado
     }
 
-    baseDatos.entrevistas.insert_one(nueva_entrevista)
+    baseDatos_amigo.entrevistas.insert_one(nueva_entrevista)
     return redirect(url_for('entrevistas'))
 
 @app.route('/eliminar_entrevistador', methods=['POST'])
 def eliminar_entrevistador():
     id_entrevistador = int(request.form['id_entrevistador'])
-    baseDatos.entrevistador.delete_one({'_id': id_entrevistador})
+    baseDatos_local.entrevistador.delete_one({'_id': id_entrevistador})
+    baseDatos_amigo.habilidades.delete_many({'entrevistador': id_entrevistador})
     return redirect(url_for('entrevistas'))
 
 @app.route('/eliminar_entrevista', methods=['POST'])
 def eliminar_entrevista():
     id_entrevista = int(request.form['id_entrevista'])
-    baseDatos.entrevistas.delete_one({'_id': id_entrevista})
+    baseDatos_amigo.entrevistas.delete_one({'_id': id_entrevista})
     return redirect(url_for('entrevistas'))
 
 

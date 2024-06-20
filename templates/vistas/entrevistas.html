@@ -37,21 +37,21 @@
     <h1>Lista de Entrevistadores y sus entrevistas</h1>
     <ul>
       {% for entrevistador in entrevistadores %}
-      <li>
-        <strong>{{ entrevistador.nombre }} {{ entrevistador.apellido }}</strong> - {{ entrevistador.correo }}
-        <ul>
-          {% for entrevista in entrevistador.entrevistas %}
           <li>
-            Candidato: {{ entrevista.candidato }} -
-            Fecha y Hora: {{ entrevista.fecha_hora }} -
-            Ubicación: {{ entrevista.ubicacion }} -
-            Estado: {{ entrevista.estado }}
+              <strong>{{ entrevistador.nombre }} {{ entrevistador.apellido }}</strong> - {{ entrevistador.correo }}
+              <ul>
+                  {% for entrevista in entrevistador.entrevistas %}
+                      <li>
+                          Candidato: {{ entrevista.candidato }} -
+                          Fecha y Hora: {{ entrevista.fecha_hora }} -
+                          Ubicación: {{ entrevista.ubicacion }} -
+                          Estado: {{ entrevista.estado }}
+                      </li>
+                  {% endfor %}
+              </ul>
           </li>
-          {% endfor %}
-        </ul>
-      </li>
       {% endfor %}
-    </ul>
+  </ul>
     <button id="toggleFormsBtn" type="button" class="btn btn-primary">Agrear Entrevistador/entrevista</button>
     <button  type="button" class="btn btn-primary">Editar Candidato/Habilidad</button>
     <button id="toggleFormsBtnElimi" type="button" class="btn btn-primary">Eliminar Entrevistador/entrevista</button>
