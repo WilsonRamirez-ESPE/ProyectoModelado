@@ -74,158 +74,162 @@
       Eliminar Empresa/Oferta
     </button>
 
-    <form class="formularios" id="formAgregarEmpresa" action="/agregar_empresa" method="POST" style="display: none">
-      <h2>Agregar Nueva Empresa</h2>
+    <div class="form-container">
+      <form class="formularios" id="formAgregarEmpresa" action="/agregar_empresa" method="POST" style="display: none">
+        <h2>Agregar Nueva Empresa</h2>
+        <div class="mb-3">
+          <label for="id_empresa" class="form-label">ID de la Empresa</label>
+          <input type="text" class="form-control" id="id_empresa" name="id_empresa" required />
+        </div>
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" required />
+        </div>
+        <div class="mb-3">
+          <label for="industria" class="form-label">Industria</label>
+          <input type="text" class="form-control" id="industria" name="industria" required />
+        </div>
+        <div class="mb-3">
+          <label for="ubicacion" class="form-label">Ubicación</label>
+          <input type="text" class="form-control" id="ubicacion" name="ubicacion" required />
+        </div>
+        <div class="mb-3">
+          <label for="correo" class="form-label">Correo</label>
+          <input type="email" class="form-control" id="correo" name="correo" required />
+        </div>
+        <div class="mb-3">
+          <label for="telefono" class="form-label">Teléfono</label>
+          <input type="text" class="form-control" id="telefono" name="telefono" required />
+        </div>
+        <div class="mb-3">
+          <label for="numero_empleados" class="form-label">Número de Empleados</label>
+          <input type="number" class="form-control" id="numero_empleados" name="numero_empleados" required />
+        </div>
+        <div class="mb-3">
+          <label for="facturacion_anual" class="form-label">Facturación Anual</label>
+          <input type="number" class="form-control" id="facturacion_anual" name="facturacion_anual" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar Empresa</button>
+      </form>
+  
+      <form class="formularios" id="formAgregarOferta" action="/agregar_oferta" method="POST" style="display: none">
+        <h2>Agregar Nueva Oferta de Trabajo</h2>
+        <div class="mb-3">
+          <label for="id_oferta" class="form-label">ID de la Oferta</label>
+          <input type="text" class="form-control" id="id_oferta" name="id_oferta" required />
+        </div>
+        <div class="mb-3">
+          <label for="titulo" class="form-label">Título</label>
+          <input type="text" class="form-control" id="titulo" name="titulo" required />
+        </div>
+        <div class="mb-3">
+          <label for="descripcion" class="form-label">Descripción</label>
+          <input type="text" class="form-control" id="descripcion" name="descripcion" required />
+        </div>
+        <div class="mb-3">
+          <label for="empresa" class="form-label">ID de la Empresa</label>
+          <input type="text" class="form-control" id="empresa" name="empresa" required />
+        </div>
+        <div class="mb-3">
+          <label for="salario" class="form-label">Salario</label>
+          <input type="number" class="form-control" id="salario" name="salario" required />
+        </div>
+        <div class="mb-3">
+          <label for="fecha_publicacion" class="form-label">Fecha de Publicación</label>
+          <input type="date" class="form-control" id="fecha_publicacion" name="fecha_publicacion" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar Oferta</button>
+      </form>
+  
+      <form class="formularios" id="formEliminarEmpresa" action="/eliminar_empresa" method="POST" style="display: none">
+        <h2>Eliminar Empresa por ID</h2>
+        <div class="mb-3">
+          <label for="id_empresa" class="form-label">ID de la Empresa</label>
+          <input type="text" class="form-control" id="id_empresa" name="id_empresa" required />
+        </div>
+        <button type="submit" class="btn btn-danger">Eliminar Empresa</button>
+      </form>
+  
+      <form class="formularios" id="formEliminarOferta" action="/eliminar_oferta" method="POST" style="display: none">
+        <h2>Eliminar Oferta de Trabajo por ID</h2>
+        <div class="mb-3">
+          <label for="id_oferta" class="form-label">ID de la Oferta de Trabajo</label>
+          <input type="text" class="form-control" id="id_oferta" name="id_oferta" required />
+        </div>
+        <button type="submit" class="btn btn-danger">
+          Eliminar Oferta de Trabajo
+        </button>
+      </form>
+  
+      <form class="formularios" id="formActualizarEmpresa" action="/actualizar_empresa" method="POST"
+        style="display: none">
+        <h2>Actualizar Empresa</h2>
+        <div class="mb-3">
+          <label for="id_empresa" class="form-label">ID de la Empresa</label>
+          <input type="text" class="form-control" id="id_empresa" name="id_empresa" required>
+        </div>
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" required>
+        </div>
+        <div class="mb-3">
+          <label for="industria" class="form-label">Industria</label>
+          <input type="text" class="form-control" id="industria" name="industria" required>
+        </div>
+        <div class="mb-3">
+          <label for="ubicacion" class="form-label">Ubicación</label>
+          <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
+        </div>
+        <div class="mb-3">
+          <label for="correo_contacto" class="form-label">Correo de Contacto</label>
+          <input type="email" class="form-control" id="correo_contacto" name="correo_contacto" required>
+        </div>
+        <div class="mb-3">
+          <label for="telefono_contacto" class="form-label">Teléfono de Contacto</label>
+          <input type="text" class="form-control" id="telefono_contacto" name="telefono_contacto" required>
+        </div>
+        <div class="mb-3">
+          <label for="numero_empleados" class="form-label">Número de Empleados</label>
+          <input type="number" class="form-control" id="numero_empleados" name="numero_empleados" required>
+        </div>
+        <div class="mb-3">
+          <label for="facturacion_anual" class="form-label">Facturación Anual</label>
+          <input type="number" class="form-control" id="facturacion_anual" name="facturacion_anual" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar Empresa</button>
+      </form>
+  
+      <form class="formularios" id="formActualizarOferta" action="/actualizar_oferta" method="POST" style="display: none">
+        <h2>Actualizar Oferta de Trabajo</h2>
       <div class="mb-3">
-        <label for="id_empresa" class="form-label">ID de la Empresa</label>
-        <input type="text" class="form-control" id="id_empresa" name="id_empresa" required />
+          <label for="id_oferta" class="form-label">ID de la Oferta</label>
+          <input type="text" class="form-control" id="id_oferta" name="id_oferta" required>
       </div>
       <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="nombre" name="nombre" required />
+          <label for="titulo" class="form-label">Título</label>
+          <input type="text" class="form-control" id="titulo" name="titulo" required>
       </div>
       <div class="mb-3">
-        <label for="industria" class="form-label">Industria</label>
-        <input type="text" class="form-control" id="industria" name="industria" required />
+          <label for="descripcion" class="form-label">Descripción</label>
+          <input type="text" class="form-control" id="descripcion" name="descripcion" required>
       </div>
       <div class="mb-3">
-        <label for="ubicacion" class="form-label">Ubicación</label>
-        <input type="text" class="form-control" id="ubicacion" name="ubicacion" required />
+          <label for="empresa" class="form-label">ID de la Empresa</label>
+          <input type="text" class="form-control" id="empresa" name="empresa" required>
       </div>
       <div class="mb-3">
-        <label for="correo" class="form-label">Correo</label>
-        <input type="email" class="form-control" id="correo" name="correo" required />
+          <label for="salario" class="form-label">Salario</label>
+          <input type="number" class="form-control" id="salario" name="salario" required>
       </div>
       <div class="mb-3">
-        <label for="telefono" class="form-label">Teléfono</label>
-        <input type="text" class="form-control" id="telefono" name="telefono" required />
+          <label for="fecha_publicacion" class="form-label">Fecha de Publicación</label>
+          <input type="date" class="form-control" id="fecha_publicacion" name="fecha_publicacion" required>
       </div>
-      <div class="mb-3">
-        <label for="numero_empleados" class="form-label">Número de Empleados</label>
-        <input type="number" class="form-control" id="numero_empleados" name="numero_empleados" required />
-      </div>
-      <div class="mb-3">
-        <label for="facturacion_anual" class="form-label">Facturación Anual</label>
-        <input type="number" class="form-control" id="facturacion_anual" name="facturacion_anual" required />
-      </div>
-      <button type="submit" class="btn btn-primary">Agregar Empresa</button>
-    </form>
+      <button type="submit" class="btn btn-primary">Actualizar Oferta de Trabajo</button>
+      </form>
+    </div>
 
-    <form class="formularios" id="formAgregarOferta" action="/agregar_oferta" method="POST" style="display: none">
-      <h2>Agregar Nueva Oferta de Trabajo</h2>
-      <div class="mb-3">
-        <label for="id_oferta" class="form-label">ID de la Oferta</label>
-        <input type="text" class="form-control" id="id_oferta" name="id_oferta" required />
-      </div>
-      <div class="mb-3">
-        <label for="titulo" class="form-label">Título</label>
-        <input type="text" class="form-control" id="titulo" name="titulo" required />
-      </div>
-      <div class="mb-3">
-        <label for="descripcion" class="form-label">Descripción</label>
-        <input type="text" class="form-control" id="descripcion" name="descripcion" required />
-      </div>
-      <div class="mb-3">
-        <label for="empresa" class="form-label">ID de la Empresa</label>
-        <input type="text" class="form-control" id="empresa" name="empresa" required />
-      </div>
-      <div class="mb-3">
-        <label for="salario" class="form-label">Salario</label>
-        <input type="number" class="form-control" id="salario" name="salario" required />
-      </div>
-      <div class="mb-3">
-        <label for="fecha_publicacion" class="form-label">Fecha de Publicación</label>
-        <input type="date" class="form-control" id="fecha_publicacion" name="fecha_publicacion" required />
-      </div>
-      <button type="submit" class="btn btn-primary">Agregar Oferta</button>
-    </form>
-
-    <form class="formularios" id="formEliminarEmpresa" action="/eliminar_empresa" method="POST" style="display: none">
-      <h2>Eliminar Empresa por ID</h2>
-      <div class="mb-3">
-        <label for="id_empresa" class="form-label">ID de la Empresa</label>
-        <input type="text" class="form-control" id="id_empresa" name="id_empresa" required />
-      </div>
-      <button type="submit" class="btn btn-danger">Eliminar Empresa</button>
-    </form>
-
-    <form class="formularios" id="formEliminarOferta" action="/eliminar_oferta" method="POST" style="display: none">
-      <h2>Eliminar Oferta de Trabajo por ID</h2>
-      <div class="mb-3">
-        <label for="id_oferta" class="form-label">ID de la Oferta de Trabajo</label>
-        <input type="text" class="form-control" id="id_oferta" name="id_oferta" required />
-      </div>
-      <button type="submit" class="btn btn-danger">
-        Eliminar Oferta de Trabajo
-      </button>
-    </form>
-
-    <form class="formularios" id="formActualizarEmpresa" action="/actualizar_empresa" method="POST"
-      style="display: none">
-      <h2>Actualizar Empresa</h2>
-      <div class="mb-3">
-        <label for="id_empresa" class="form-label">ID de la Empresa</label>
-        <input type="text" class="form-control" id="id_empresa" name="id_empresa" required>
-      </div>
-      <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="nombre" name="nombre" required>
-      </div>
-      <div class="mb-3">
-        <label for="industria" class="form-label">Industria</label>
-        <input type="text" class="form-control" id="industria" name="industria" required>
-      </div>
-      <div class="mb-3">
-        <label for="ubicacion" class="form-label">Ubicación</label>
-        <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
-      </div>
-      <div class="mb-3">
-        <label for="correo_contacto" class="form-label">Correo de Contacto</label>
-        <input type="email" class="form-control" id="correo_contacto" name="correo_contacto" required>
-      </div>
-      <div class="mb-3">
-        <label for="telefono_contacto" class="form-label">Teléfono de Contacto</label>
-        <input type="text" class="form-control" id="telefono_contacto" name="telefono_contacto" required>
-      </div>
-      <div class="mb-3">
-        <label for="numero_empleados" class="form-label">Número de Empleados</label>
-        <input type="number" class="form-control" id="numero_empleados" name="numero_empleados" required>
-      </div>
-      <div class="mb-3">
-        <label for="facturacion_anual" class="form-label">Facturación Anual</label>
-        <input type="number" class="form-control" id="facturacion_anual" name="facturacion_anual" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Actualizar Empresa</button>
-    </form>
-
-    <form class="formularios" id="formActualizarOferta" action="/actualizar_oferta" method="POST" style="display: none">
-      <h2>Actualizar Oferta de Trabajo</h2>
-    <div class="mb-3">
-        <label for="id_oferta" class="form-label">ID de la Oferta</label>
-        <input type="text" class="form-control" id="id_oferta" name="id_oferta" required>
-    </div>
-    <div class="mb-3">
-        <label for="titulo" class="form-label">Título</label>
-        <input type="text" class="form-control" id="titulo" name="titulo" required>
-    </div>
-    <div class="mb-3">
-        <label for="descripcion" class="form-label">Descripción</label>
-        <input type="text" class="form-control" id="descripcion" name="descripcion" required>
-    </div>
-    <div class="mb-3">
-        <label for="empresa" class="form-label">ID de la Empresa</label>
-        <input type="text" class="form-control" id="empresa" name="empresa" required>
-    </div>
-    <div class="mb-3">
-        <label for="salario" class="form-label">Salario</label>
-        <input type="number" class="form-control" id="salario" name="salario" required>
-    </div>
-    <div class="mb-3">
-        <label for="fecha_publicacion" class="form-label">Fecha de Publicación</label>
-        <input type="date" class="form-control" id="fecha_publicacion" name="fecha_publicacion" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Actualizar Oferta de Trabajo</button>
-    </form>
+    
 
 
   </div>

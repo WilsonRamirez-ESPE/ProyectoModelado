@@ -78,148 +78,153 @@
         <button id="toggleFormsBtnA" type="button" class="btn btn-primary">Editar Candidato/Habilidad</button>
         <button id="toggleFormsBtnE" type="button" class="btn btn-primary">Eliminar Candidato/Habilidad</button>
 
-        <form class="formularios" id="formAgregarCandidato" action="/agregar_candidato" method="POST" style="display: none;">
-            <h2>Agregar Nuevo Candidato</h2>
-            <div class="mb-3">
-                <label for="id_candidato" class="form-label">ID del Candidato</label>
-                <input type="text" class="form-control" id="id_candidato" name="id_candidato" required>
-            </div>
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
-            </div>
-            <div class="mb-3">
-                <label for="apellido" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="apellido" name="apellido" required>
-            </div>
-            <div class="mb-3">
-                <label for="correo" class="form-label">Correo</label>
-                <input type="email" class="form-control" id="correo" name="correo" required>
-            </div>
-            <div class="mb-3">
-                <label for="telefono" class="form-label">Teléfono</label>
-                <input type="text" class="form-control" id="telefono" name="telefono" required>
-            </div>
-            <div class="mb-3">
-                <label for="nivel_estudio" class="form-label">Nivel de Estudio</label>
-                <input type="text" class="form-control" id="nivel_estudio" name="nivel_estudio" required>
-            </div>
+        <div class="form-container">
+            <form class="formularios" id="formAgregarCandidato" action="/agregar_candidato" method="POST" style="display: none;">
+                <h2>Agregar Nuevo Candidato</h2>
+                <div class="mb-3">
+                    <label for="id_candidato" class="form-label">ID del Candidato</label>
+                    <input type="text" class="form-control" id="id_candidato" name="id_candidato" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" id="apellido" name="apellido" required>
+                </div>
+                <div class="mb-3">
+                    <label for="correo" class="form-label">Correo</label>
+                    <input type="email" class="form-control" id="correo" name="correo" required>
+                </div>
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" id="telefono" name="telefono" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nivel_estudio" class="form-label">Nivel de Estudio</label>
+                    <input type="text" class="form-control" id="nivel_estudio" name="nivel_estudio" required>
+                </div>
+    
+                <div id="experienciaLaboralContainer">
+                    
+                </div>
+                <button type="button" class="btn btn-secondary" id="addExperience">Agregar Experiencia Laboral</button>
+                <button type="submit" class="btn btn-primary">Agregar Candidato</button>
+            </form>
+    
+            <form class="formularios" id="formAgregarHabilidad" action="/agregar_habilidad" method="POST"
+                style="display: none;">
+                <h2>Agregar Nueva Habilidad</h2>
+                <div class="mb-3">
+                    <label for="id_habilidad" class="form-label">Id</label>
+                    <input type="text" class="form-control" id="id_habilidad" name="id_habilidad" required>
+                </div>
+                <div class="mb-3">
+                    <label for="habilidad_nombre" class="form-label">Nombre de la Habilidad</label>
+                    <input type="text" class="form-control" id="habilidad_nombre" name="habilidad_nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="habilidad_descripcion" class="form-label">Descripción de la Habilidad</label>
+                    <input type="text" class="form-control" id="habilidad_descripcion" name="habilidad_descripcion"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="nivel_experiencia" class="form-label">Nivel de Experiencia</label>
+                    <input type="text" class="form-control" id="nivel_experiencia" name="nivel_experiencia" required>
+                </div>
+                <div class="mb-3">
+                    <label for="id_candidato" class="form-label">ID del candidato</label>
+                    <input type="text" class="form-control" id="id_candidato" name="id_candidato" required>
+                </div>
+    
+                <button type="submit" class="btn btn-primary">Agregar Habilidad</button>
+            </form>
+    
+            <form class="formularios" id="formEliminarCandidato" action="/eliminar_candidato" method="POST"
+                style="display: none;">
+                <h2>Eliminar Candidato por ID</h2>
+                <div class="mb-3">
+                    <label for="id_candidatoE" class="form-label">ID del Candidato</label>
+                    <input type="text" class="form-control" id="id_candidatoE" name="id_candidatoE" required>
+                </div>
+                <button type="submit" class="btn btn-danger">Eliminar Candidato</button>
+            </form>
+    
+            <form class="formularios" id="formEliminarHabilidad" action="/eliminar_habilidad" method="POST"
+                style="display: none;">
+                <h2>Eliminar Habilidad por ID</h2>
+                <div class="mb-3">
+                    <label for="id_habilidadE" class="form-label">ID de la Habilidad</label>
+                    <input type="text" class="form-control" id="id_habilidadE" name="id_habilidadE" required>
+                </div>
+                <button type="submit" class="btn btn-danger">Eliminar Habilidad</button>
+            </form>
+    
+            <form class="formularios" id="formActualizarCandidato" action="/actualizar_candidato" method="POST"
+                style="display: none;">
+                <h2>Actualizar Candidato</h2>
+                <div class="mb-3">
+                    <label for="id_candidato" class="form-label">ID del Candidato</label>
+                    <input type="text" class="form-control" id="id_candidato" name="id_candidato" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" id="apellido" name="apellido" required>
+                </div>
+                <div class="mb-3">
+                    <label for="correo" class="form-label">Correo</label>
+                    <input type="email" class="form-control" id="correo" name="correo" required>
+                </div>
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" id="telefono" name="telefono" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nivel_estudio" class="form-label">Nivel de Estudio</label>
+                    <input type="text" class="form-control" id="nivel_estudio" name="nivel_estudio" required>
+                </div>
+    
+                <div id="experienciaLaboralContainer">
+    
+                </div>
+                <button type="button" class="btn btn-secondary" id="addExperience">Agregar Experiencia Laboral</button>
+                <button type="submit" class="btn btn-primary">Actualizar Candidato</button>
+            </form>
+    
+            <form class="formularios" id="formActualizarHabilidad" action="/actualizar_habilidad" method="POST"
+                style="display: none;">
+                <h2>Actualizar Habilidad</h2>
+                <div class="mb-3">
+                    <label for="id_habilidad" class="form-label">ID de la Habilidad</label>
+                    <input type="text" class="form-control" id="id_habilidad" name="id_habilidad" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nivel_experiencia" class="form-label">Nivel de Experiencia</label>
+                    <input type="text" class="form-control" id="nivel_experiencia" name="nivel_experiencia" required>
+                </div>
+                <div class="mb-3">
+                    <label for="IDCandidato" class="form-label">ID del Candidato</label>
+                    <input type="text" class="form-control" id="IDCandidato" name="IDCandidato" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Actualizar Habilidad</button>
+            </form>
+        </div>
+        
 
-            <div id="experienciaLaboralContainer">
-                
-            </div>
-            <button type="button" class="btn btn-secondary" id="addExperience">Agregar Experiencia Laboral</button>
-            <button type="submit" class="btn btn-primary">Agregar Candidato</button>
-        </form>
-
-        <form class="formularios" id="formAgregarHabilidad" action="/agregar_habilidad" method="POST"
-            style="display: none;">
-            <h2>Agregar Nueva Habilidad</h2>
-            <div class="mb-3">
-                <label for="id_habilidad" class="form-label">Id</label>
-                <input type="text" class="form-control" id="id_habilidad" name="id_habilidad" required>
-            </div>
-            <div class="mb-3">
-                <label for="habilidad_nombre" class="form-label">Nombre de la Habilidad</label>
-                <input type="text" class="form-control" id="habilidad_nombre" name="habilidad_nombre" required>
-            </div>
-            <div class="mb-3">
-                <label for="habilidad_descripcion" class="form-label">Descripción de la Habilidad</label>
-                <input type="text" class="form-control" id="habilidad_descripcion" name="habilidad_descripcion"
-                    required>
-            </div>
-            <div class="mb-3">
-                <label for="nivel_experiencia" class="form-label">Nivel de Experiencia</label>
-                <input type="text" class="form-control" id="nivel_experiencia" name="nivel_experiencia" required>
-            </div>
-            <div class="mb-3">
-                <label for="id_candidato" class="form-label">ID del candidato</label>
-                <input type="text" class="form-control" id="id_candidato" name="id_candidato" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Agregar Habilidad</button>
-        </form>
-
-        <form class="formularios" id="formEliminarCandidato" action="/eliminar_candidato" method="POST"
-            style="display: none;">
-            <h2>Eliminar Candidato por ID</h2>
-            <div class="mb-3">
-                <label for="id_candidatoE" class="form-label">ID del Candidato</label>
-                <input type="text" class="form-control" id="id_candidatoE" name="id_candidatoE" required>
-            </div>
-            <button type="submit" class="btn btn-danger">Eliminar Candidato</button>
-        </form>
-
-        <form class="formularios" id="formEliminarHabilidad" action="/eliminar_habilidad" method="POST"
-            style="display: none;">
-            <h2>Eliminar Habilidad por ID</h2>
-            <div class="mb-3">
-                <label for="id_habilidadE" class="form-label">ID de la Habilidad</label>
-                <input type="text" class="form-control" id="id_habilidadE" name="id_habilidadE" required>
-            </div>
-            <button type="submit" class="btn btn-danger">Eliminar Habilidad</button>
-        </form>
-
-        <form class="formularios" id="formActualizarCandidato" action="/actualizar_candidato" method="POST"
-            style="display: none;">
-            <h2>Actualizar Candidato</h2>
-            <div class="mb-3">
-                <label for="id_candidato" class="form-label">ID del Candidato</label>
-                <input type="text" class="form-control" id="id_candidato" name="id_candidato" required>
-            </div>
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
-            </div>
-            <div class="mb-3">
-                <label for="apellido" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="apellido" name="apellido" required>
-            </div>
-            <div class="mb-3">
-                <label for="correo" class="form-label">Correo</label>
-                <input type="email" class="form-control" id="correo" name="correo" required>
-            </div>
-            <div class="mb-3">
-                <label for="telefono" class="form-label">Teléfono</label>
-                <input type="text" class="form-control" id="telefono" name="telefono" required>
-            </div>
-            <div class="mb-3">
-                <label for="nivel_estudio" class="form-label">Nivel de Estudio</label>
-                <input type="text" class="form-control" id="nivel_estudio" name="nivel_estudio" required>
-            </div>
-
-            <div id="experienciaLaboralContainer">
-
-            </div>
-            <button type="button" class="btn btn-secondary" id="addExperience">Agregar Experiencia Laboral</button>
-            <button type="submit" class="btn btn-primary">Actualizar Candidato</button>
-        </form>
-
-        <form class="formularios" id="formActualizarHabilidad" action="/actualizar_habilidad" method="POST"
-            style="display: none;">
-            <h2>Actualizar Habilidad</h2>
-            <div class="mb-3">
-                <label for="id_habilidad" class="form-label">ID de la Habilidad</label>
-                <input type="text" class="form-control" id="id_habilidad" name="id_habilidad" required>
-            </div>
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
-            </div>
-            <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción</label>
-                <input type="text" class="form-control" id="descripcion" name="descripcion" required>
-            </div>
-            <div class="mb-3">
-                <label for="nivel_experiencia" class="form-label">Nivel de Experiencia</label>
-                <input type="text" class="form-control" id="nivel_experiencia" name="nivel_experiencia" required>
-            </div>
-            <div class="mb-3">
-                <label for="IDCandidato" class="form-label">ID del Candidato</label>
-                <input type="text" class="form-control" id="IDCandidato" name="IDCandidato" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Actualizar Habilidad</button>
-        </form>
+        
 
     </div>
 </body>

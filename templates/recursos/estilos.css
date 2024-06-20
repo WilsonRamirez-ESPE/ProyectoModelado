@@ -6,6 +6,11 @@
   
 }
 
+.form-container {
+  display: flex;
+  gap: 20px; /* Espacio entre los formularios */
+}
+
 .btn{
   margin: 2px;
 }

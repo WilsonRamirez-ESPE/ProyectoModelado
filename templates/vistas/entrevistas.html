@@ -18,10 +18,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="/">Inicio</a>
+            <a class="nav-link active" href="/">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/candidatos">Candidatos</a>
+            <a class="nav-link active" href="/candidatos">Candidatos</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/empresas">Empresas</a>
@@ -70,7 +70,8 @@
     <button id="toggleFormsBtnActua" type="button" class="btn btn-primary">Editar Candidato/Habilidad</button>
     <button id="toggleFormsBtnElimi" type="button" class="btn btn-primary">Eliminar Entrevistador/entrevista</button>
 
-    <form class="formularios" id="formAgregarEntrevistador" action="/agregar_entrevistador" method="POST"
+    <div class="form-container">
+      <form class="formularios" id="formAgregarEntrevistador" action="/agregar_entrevistador" method="POST"
       style="display: none;">
       <h2>Agregar Nuevo Entrevistador</h2>
       <div class="mb-3">
@@ -207,6 +208,9 @@
       </div>
       <button type="submit" class="btn btn-primary">Actualizar Entrevista</button>
   </form>
+    </div>
+
+    
   
 
 
