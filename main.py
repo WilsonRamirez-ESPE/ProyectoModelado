@@ -423,7 +423,6 @@ def actualizar_entrevistador():
 
     return redirect(url_for('entrevistas'))
 
-
 @app.route('/actualizar_entrevista', methods=['POST'])
 def actualizar_entrevista():
     id_entrevista = int(request.form['id_entrevista'])
